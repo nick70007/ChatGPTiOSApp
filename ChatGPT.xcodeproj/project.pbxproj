@@ -8,17 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		88457D0F29882CC500AF1F6E /* ChatGPTApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88457D0E29882CC500AF1F6E /* ChatGPTApp.swift */; };
-		88457D1129882CC500AF1F6E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88457D1029882CC500AF1F6E /* ContentView.swift */; };
+		88457D1129882CC500AF1F6E /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88457D1029882CC500AF1F6E /* ChatView.swift */; };
 		88457D1329882CC600AF1F6E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88457D1229882CC600AF1F6E /* Assets.xcassets */; };
 		88457D1629882CC600AF1F6E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88457D1529882CC600AF1F6E /* Preview Assets.xcassets */; };
+		88457D1E298834F600AF1F6E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 88457D1D298834F600AF1F6E /* Alamofire */; };
+		88457D22298838C900AF1F6E /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88457D21298838C900AF1F6E /* ChatMessage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		88457D0B29882CC500AF1F6E /* ChatGPT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatGPT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88457D0E29882CC500AF1F6E /* ChatGPTApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTApp.swift; sourceTree = "<group>"; };
-		88457D1029882CC500AF1F6E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		88457D1029882CC500AF1F6E /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		88457D1229882CC600AF1F6E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		88457D1529882CC600AF1F6E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		88457D21298838C900AF1F6E /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88457D1E298834F600AF1F6E /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,7 +56,8 @@
 			isa = PBXGroup;
 			children = (
 				88457D0E29882CC500AF1F6E /* ChatGPTApp.swift */,
-				88457D1029882CC500AF1F6E /* ContentView.swift */,
+				88457D1F298835F400AF1F6E /* Model */,
+				88457D202988360200AF1F6E /* View */,
 				88457D1229882CC600AF1F6E /* Assets.xcassets */,
 				88457D1429882CC600AF1F6E /* Preview Content */,
 			);
@@ -65,6 +70,22 @@
 				88457D1529882CC600AF1F6E /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		88457D1F298835F400AF1F6E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				88457D21298838C900AF1F6E /* ChatMessage.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		88457D202988360200AF1F6E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				88457D1029882CC500AF1F6E /* ChatView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +104,9 @@
 			dependencies = (
 			);
 			name = ChatGPT;
+			packageProductDependencies = (
+				88457D1D298834F600AF1F6E /* Alamofire */,
+			);
 			productName = ChatGPT;
 			productReference = 88457D0B29882CC500AF1F6E /* ChatGPT.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +135,9 @@
 				Base,
 			);
 			mainGroup = 88457D0229882CC500AF1F6E;
+			packageReferences = (
+				88457D1C298834F600AF1F6E /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 88457D0C29882CC500AF1F6E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -137,7 +164,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				88457D1129882CC500AF1F6E /* ContentView.swift in Sources */,
+				88457D22298838C900AF1F6E /* ChatMessage.swift in Sources */,
+				88457D1129882CC500AF1F6E /* ChatView.swift in Sources */,
 				88457D0F29882CC500AF1F6E /* ChatGPTApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -196,7 +224,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -251,7 +279,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -277,7 +305,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -307,7 +335,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -343,6 +371,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		88457D1C298834F600AF1F6E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		88457D1D298834F600AF1F6E /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 88457D1C298834F600AF1F6E /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 88457D0329882CC500AF1F6E /* Project object */;
 }
