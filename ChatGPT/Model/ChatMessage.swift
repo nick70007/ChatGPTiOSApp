@@ -13,20 +13,8 @@ enum MessageSender {
 }
 
 struct ChatMessage: Identifiable {
-    let id = UUID().uuidString
+    let id: String
     let content: String
-    let dateCreated: Date
+    let dateCreated = Date()
     let sender: MessageSender
-}
-
-extension ChatMessage {
-    
-    static let chatMessages = [
-        ChatMessage(content: "Sample Message From Me", dateCreated: Date(), sender: .me),
-        ChatMessage(content: "Sample Message From GPT", dateCreated: Date(), sender: .gpt),
-        ChatMessage(content: "Sample Message From Me", dateCreated: Date(), sender: .me),
-        ChatMessage(content: "Sample Message From GPT", dateCreated: Date(), sender: .gpt)
-    
-    ]
-    
 }
