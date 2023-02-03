@@ -11,77 +11,93 @@ import Combine
 struct ChatView: View {
     
     // MARK: - Properties
+    @Environment(\.colorScheme) var colorScheme
     @State private var messages: [ChatMessage] = []
     @State private var messageText = ""
     @State private var cancellables = Set<AnyCancellable>()
-    let service = OpenAIService()
+    @StateObject var vm = ViewModel(api: ChatGPTAPI(apiKey: Constants.OPENAI_API_KEY))
+    @FocusState var isTextFieldFocused: Bool
     
     var body: some View {
-        VStack {
-            ScrollView {
-                LazyVStack {
-                    ForEach(messages) { message in
-                        messageView(message: message)
+        chatListView
+            .navigationTitle("XCA ChatGPT")
+    }
+    
+    var chatListView: some View {
+        ScrollViewReader { proxy in
+            VStack(spacing: 0) {
+                ScrollView {
+                    LazyVStack(spacing: 0) {
+                        ForEach(vm.messages) { message in
+                            MessageRowView(message: message) { message in
+                                Task { @MainActor in
+                                    await vm.retry(message: message)
+                                }
+                            }
+                        }
+                    }
+                    .onTapGesture {
+                        isTextFieldFocused = false
                     }
                 }
-            }
-            
-            HStack {
-                TextField("Enter a message ...", text: $messageText) {
-                    sendMessage()
-                }
-                .autocapitalization(.none)
-                .disableAutocorrection(false)
-                .padding()
-                .background(Color.gray.opacity(0.1))
-                .cornerRadius(12)
                 
-                Button {
-                    self.sendMessage()
-                } label: {
-                    Text("Send")
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color.black)
-                        .cornerRadius(12)
+                Divider()
+                bottomView(image: "profile", proxy: proxy)
+                Spacer()
+            }
+            .onChange(of: vm.messages.last?.responseText) { _ in  scrollToBottom(proxy: proxy)
+            }
+        }
+        .background(colorScheme == .light ? .white : Color(red: 52/255, green: 53/255, blue: 65/255, opacity: 0.5))
+    }
+    
+    func bottomView(image: String, proxy: ScrollViewProxy) -> some View {
+        HStack(alignment: .top, spacing: 8) {
+            if image.hasPrefix("http"), let url = URL(string: image) {
+                AsyncImage(url: url) { image in
+                    image
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                } placeholder: {
+                    ProgressView()
                 }
+
+            } else {
+                Image(image)
+                    .resizable()
+                    .frame(width: 30, height: 30)
             }
             
-        }
-        .padding()
-    }
-    
-    func messageView(message: ChatMessage) -> some View {
-        HStack {
-            if message.sender == .me { Spacer() }
-            Text(message.content)
-                .foregroundColor(message.sender == .me ? .white : .black)
-                .padding()
-                .background(message.sender == .me ? .blue : .gray.opacity(0.1))
-                .cornerRadius(16)
-            if message.sender == .gpt { Spacer() }
-        }
-    }
-    
-    func sendMessage() {
-        
-        let myMessage = ChatMessage(id: UUID().uuidString,
-                                    content: messageText,
-                                    sender: .me)
-        messages.append(myMessage)
-        
-        service.send(messageText).sink { completion in
+            TextField("Send message", text: $vm.inputMessage)
+                .textFieldStyle(.roundedBorder)
+                .focused($isTextFieldFocused)
+                .disabled(vm.isInteractingWithChatGPT)
             
-        } receiveValue: { response in
-            guard let textResponse = response.choices.first?.text.trimmingCharacters(in: .whitespacesAndNewlines.union(.init(charactersIn: "\""))) else { return }
-            let gptMessage = ChatMessage(id: response.id,
-                                         content: textResponse,
-                                         sender: .gpt)
-            messages.append(gptMessage)
-        }
-        .store(in: &cancellables)
+            if vm.isInteractingWithChatGPT {
+                DotLoadingView().frame(width: 60, height: 30)
+            } else {
+                Button {
+                    Task { @MainActor in
+                        isTextFieldFocused = false
+                        scrollToBottom(proxy: proxy)
+                        await vm.sendTapped()
+                    }
+                } label: {
+                    Image(systemName: "paperplane.circle.fill")
+                        .rotationEffect(.degrees(45))
+                        .font(.system(size: 30))
+                }
+                .disabled(vm.inputMessage.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
 
-        messageText = ""
+            }
+        }
+        .padding(.horizontal, 16)
+        .padding(.top, 12)
+    }
+    
+    private func scrollToBottom(proxy: ScrollViewProxy) {
+        guard let id = vm.messages.last?.id else { return }
+        proxy.scrollTo(id, anchor: .bottomTrailing)
     }
 }
 

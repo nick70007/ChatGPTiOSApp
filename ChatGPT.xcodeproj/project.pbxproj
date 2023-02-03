@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		88441972298C31BA006E966F /* ChatGPTAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88441971298C31BA006E966F /* ChatGPTAPI.swift */; };
 		88457D0F29882CC500AF1F6E /* ChatGPTApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88457D0E29882CC500AF1F6E /* ChatGPTApp.swift */; };
 		88457D1129882CC500AF1F6E /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88457D1029882CC500AF1F6E /* ChatView.swift */; };
 		88457D1329882CC600AF1F6E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88457D1229882CC600AF1F6E /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		88441971298C31BA006E966F /* ChatGPTAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTAPI.swift; sourceTree = "<group>"; };
 		88457D0B29882CC500AF1F6E /* ChatGPT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatGPT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88457D0E29882CC500AF1F6E /* ChatGPTApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTApp.swift; sourceTree = "<group>"; };
 		88457D1029882CC500AF1F6E /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				88BC83B3298957960070FC21 /* OpenAIService.swift */,
+				88441971298C31BA006E966F /* ChatGPTAPI.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -198,6 +201,7 @@
 				88BC83B829895B0C0070FC21 /* OpenAICompletionsResponse.swift in Sources */,
 				88457D22298838C900AF1F6E /* ChatMessage.swift in Sources */,
 				88BC83B6298958F90070FC21 /* OpenAICompletionsBody.swift in Sources */,
+				88441972298C31BA006E966F /* ChatGPTAPI.swift in Sources */,
 				88457D1129882CC500AF1F6E /* ChatView.swift in Sources */,
 				88BC83B4298957960070FC21 /* OpenAIService.swift in Sources */,
 				88457D0F29882CC500AF1F6E /* ChatGPTApp.swift in Sources */,

@@ -8,6 +8,6 @@
 import Foundation
 
 enum Constants {
-    static let OPENAI_API_KEY = "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"
+    static let OPENAI_API_KEY = "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"
     static let BASE_URL = "https://api.openai.com/v1/"
 }
