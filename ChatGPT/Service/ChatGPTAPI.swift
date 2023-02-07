@@ -138,11 +138,3 @@ extension String: CustomNSError {
         ]
     }
 }
-
-struct CompletionResponse: Decodable {
-    let choices: [Choice]
-}
-
-struct Choice: Decodable {
-    let text: String
-}

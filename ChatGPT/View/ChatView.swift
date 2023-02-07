@@ -12,7 +12,6 @@ struct ChatView: View {
     
     // MARK: - Properties
     @Environment(\.colorScheme) var colorScheme
-    @State private var messages: [ChatMessage] = []
     @State private var messageText = ""
     @State private var cancellables = Set<AnyCancellable>()
     @StateObject var vm = ViewModel(api: ChatGPTAPI(apiKey: Constants.OPENAI_API_KEY))
