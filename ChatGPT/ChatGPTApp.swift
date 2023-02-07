@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct ChatGPTApp: App {
+    
+    @StateObject private var vm = ViewModel(api: ChatGPTAPI(apiKey: Constants.OPENAI_API_KEY))
+    
     var body: some Scene {
         WindowGroup {
-            ChatView()
+            NavigationView {
+                ChatView(vm: vm)
+            }
         }
     }
 }

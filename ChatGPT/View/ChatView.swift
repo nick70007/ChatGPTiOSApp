@@ -14,12 +14,24 @@ struct ChatView: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var messageText = ""
     @State private var cancellables = Set<AnyCancellable>()
-    @StateObject var vm = ViewModel(api: ChatGPTAPI(apiKey: Constants.OPENAI_API_KEY))
+    @ObservedObject var vm: ViewModel
     @FocusState var isTextFieldFocused: Bool
     
     var body: some View {
         chatListView
-            .navigationTitle("XCA ChatGPT")
+            .navigationTitle("NRN ChatGPT")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        guard !vm.isInteractingWithChatGPT else { return }
+                        vm.clearList()
+                    } label: {
+                        Image(systemName: "trash")
+                            .symbolRenderingMode(.multicolor)
+                            .font(.system(size: 20))
+                    }
+                }
+            }
     }
     
     var chatListView: some View {
@@ -69,6 +81,7 @@ struct ChatView: View {
             
             TextField("Send message", text: $vm.inputMessage)
                 .textFieldStyle(.roundedBorder)
+                .disableAutocorrection(false)
                 .focused($isTextFieldFocused)
                 .disabled(vm.isInteractingWithChatGPT)
             
@@ -87,7 +100,6 @@ struct ChatView: View {
                         .font(.system(size: 30))
                 }
                 .disabled(vm.inputMessage.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-
             }
         }
         .padding(.horizontal, 16)
@@ -102,6 +114,6 @@ struct ChatView: View {
 
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatView()
+        ChatView(vm: ViewModel(api: ChatGPTAPI(apiKey: Constants.OPENAI_API_KEY)))
     }
 }
